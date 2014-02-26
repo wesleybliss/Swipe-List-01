@@ -18,6 +18,11 @@ public class FirstListAdapter extends BaseAdapter {
     private ArrayList<String[]> mItems;
     private LayoutInflater mLayoutInflater;
 
+    static class ViewHolder {
+        TextView textPrimary;
+        TextView textSecondary;
+    }
+
     public FirstListAdapter( final Context context, ArrayList<String[]> items ) {
 
         super();
@@ -44,15 +49,27 @@ public class FirstListAdapter extends BaseAdapter {
 
     public View getView( final int position, View view, final ViewGroup parent ) {
 
+        ViewHolder viewHolder;
+
         if ( view == null ) {
-            view = mLayoutInflater.inflate( R.layout.list_item_1, null );
+
+            view = LayoutInflater.from(mContext).inflate( R.layout.list_item_1, null );
+
+            viewHolder = new ViewHolder();
+            viewHolder.textPrimary = (TextView) view.findViewById( R.id.textPrimary );
+            viewHolder.textSecondary = (TextView) view.findViewById( R.id.textSecondary );
+
+            view.setTag( viewHolder );
+
+        }
+        else {
+
+            viewHolder = (ViewHolder) view.getTag();
+
         }
 
-        TextView textPrimary = (TextView) view.findViewById( R.id.textPrimary );
-        TextView textSecondary = (TextView) view.findViewById( R.id.textSecondary );
-
-        textPrimary.setText( mItems.get(position)[0] );
-        textSecondary.setText( mItems.get(position)[1] );
+        viewHolder.textPrimary.setText( mItems.get(position)[0] );
+        viewHolder.textSecondary.setText( mItems.get(position)[1] );
 
         return view;
 
