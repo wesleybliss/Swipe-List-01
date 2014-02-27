@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.gammagamma.swipelist01.app.R;
@@ -72,6 +73,23 @@ public class FirstListAdapter extends BaseAdapter {
         viewHolder.textSecondary.setText( mItems.get(position)[1] );
 
         return view;
+
+    }
+
+    public void toggleOptions( final View view, final int position,
+                               final ViewGroup parent, final boolean visible ) {
+
+        final RelativeLayout itemContent = (RelativeLayout) view.findViewById( R.id.itemContent );
+        final RelativeLayout itemOptions = (RelativeLayout) view.findViewById( R.id.itemOptions );
+
+        if ( itemOptions.getVisibility() == View.VISIBLE ) {
+            itemContent.setVisibility( View.VISIBLE );
+            itemOptions.setVisibility( View.INVISIBLE );
+        }
+        else {
+            itemContent.setVisibility( View.INVISIBLE );
+            itemOptions.setVisibility( View.VISIBLE );
+        }
 
     }
 

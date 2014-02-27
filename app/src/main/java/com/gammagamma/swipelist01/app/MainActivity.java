@@ -5,6 +5,8 @@ import android.content.Context;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.gammagamma.swipelist01.app.Adapters.FirstListAdapter;
@@ -12,7 +14,9 @@ import com.gammagamma.swipelist01.app.Adapters.FirstListAdapter;
 import java.util.ArrayList;
 
 
-public class MainActivity extends Activity {
+public class MainActivity
+    extends Activity
+    implements AdapterView.OnItemLongClickListener {
 
 
     private ListView mListView;
@@ -40,6 +44,7 @@ public class MainActivity extends Activity {
 
         firstListAdapter = new FirstListAdapter( this, data );
         mListView.setAdapter( firstListAdapter );
+        mListView.setOnItemLongClickListener( this );
 
     }
 
@@ -62,6 +67,12 @@ public class MainActivity extends Activity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+        firstListAdapter.toggleOptions( view, position, parent, true );
+        return false;
     }
 
 }
